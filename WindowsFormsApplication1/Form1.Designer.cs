@@ -102,9 +102,11 @@
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimizeBox = false;
             this.Name = "MonkeyAppWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ShortcutHandler);
             this.ResumeLayout(false);
             this.PerformLayout();
 
