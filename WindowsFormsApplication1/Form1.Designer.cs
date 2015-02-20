@@ -51,6 +51,7 @@
             this.Orange.Size = new System.Drawing.Size(300, 300);
             this.Orange.TabIndex = 2;
             this.Orange.UseVisualStyleBackColor = false;
+            this.Orange.Visible = false;
             this.Orange.Click += new System.EventHandler(this.Orange_Click);
             // 
             // Banana
@@ -69,6 +70,7 @@
             this.Banana.Size = new System.Drawing.Size(300, 300);
             this.Banana.TabIndex = 1;
             this.Banana.UseVisualStyleBackColor = false;
+            this.Banana.Visible = false;
             this.Banana.Click += new System.EventHandler(this.Banana_Click);
             // 
             // Apple
@@ -87,6 +89,7 @@
             this.Apple.Size = new System.Drawing.Size(300, 300);
             this.Apple.TabIndex = 0;
             this.Apple.UseVisualStyleBackColor = false;
+            this.Apple.Visible = false;
             this.Apple.Click += new System.EventHandler(this.Apple_Click);
             // 
             // MonkeyAppWindow
@@ -95,7 +98,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.Orange);
             this.Controls.Add(this.Banana);
             this.Controls.Add(this.Apple);
@@ -103,10 +106,14 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MaximumSize = new System.Drawing.Size(800, 600);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MonkeyAppWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.updateShapes);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ShortcutHandler);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MonkeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
