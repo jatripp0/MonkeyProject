@@ -28,6 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            /// <summary>
+            /// Retrieves the resolution of the primary display and 
+            /// sets variables width and height to the width and height
+            /// of the display. Used to determine the MaximumSize property of the form.
+            /// </summary>
+            var screen = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+            var width = screen.Width;
+            var height = screen.Height;
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonkeyAppWindow));
             this.Orange = new System.Windows.Forms.Button();
             this.Banana = new System.Windows.Forms.Button();
@@ -106,11 +115,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(800, 600);
+            this.MaximumSize = new System.Drawing.Size(width, height);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MonkeyAppWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.updateShapes);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ShortcutHandler);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MonkeyPress);
