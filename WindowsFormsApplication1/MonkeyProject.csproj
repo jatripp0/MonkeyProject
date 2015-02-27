@@ -7,7 +7,7 @@
     <ProjectGuid>{84C8FBEF-0E87-4EF5-9BAE-D195D0C1EF65}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <RootNamespace>MonkeyProject</RootNamespace>
     <AssemblyName>WindowsFormsApplication1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,17 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircleCanvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MonkeyAppForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MonkeyAppForm.Designer.cs">
+      <DependentUpon>MonkeyAppForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Settings.cs" />
+    <Compile Include="StartWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartWindows.Designer.cs">
+      <DependentUpon>StartWindows.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MonkeyAppForm.resx">
+      <DependentUpon>MonkeyAppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -88,6 +98,9 @@
   <ItemGroup>
     <None Include="Resources\Data.csv" />
     <None Include="Resources\orangepixifactory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

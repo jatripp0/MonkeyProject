@@ -9,13 +9,10 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace MonkeyProject
 {
     public partial class MonkeyAppWindow : Form
     {
-        public int countApple;
-        public int countBanana;
-        public int countOrange;
 
         private readonly Random r = new Random();
 
@@ -24,34 +21,11 @@ namespace WindowsFormsApplication1
         private int boxHeight;
         private int boxWidth;
 
-        public void WindowsFormsApplication1()
-        {
-            countApple = 0;
-            countBanana = 0;
-            countOrange = 0;
-        }
-
         public MonkeyAppWindow()
         {
             InitializeComponent();
 
         }
-
-        private void Apple_Click(object sender, EventArgs e)
-        {
-            ++countApple;
-        }
-
-        private void Banana_Click(object sender, EventArgs e)
-        {
-            ++countBanana;
-        }
-
-        private void Orange_Click(object sender, EventArgs e)
-        {
-            ++countOrange;
-        }
-
 
         private void drawCircle()
         {
@@ -97,10 +71,10 @@ namespace WindowsFormsApplication1
                 {
                     dataLines = dataLines.Concat(new string[] { "Apple,Banana,Orange" });
                 }
-                dataLines = dataLines.Concat(new string[] { countApple.ToString() + "," + countBanana.ToString() + "," + countOrange.ToString() });
+                //dataLines = dataLines.Concat(new string[] { countApple.ToString() + "," + countBanana.ToString() + "," + countOrange.ToString() });
 
                 System.IO.File.AppendAllLines(path, dataLines);
-                countApple = countBanana = countOrange = 0;
+                //countApple = countBanana = countOrange = 0;
                 return true;
             }
             return false;
@@ -157,6 +131,11 @@ namespace WindowsFormsApplication1
             {
                 drawCircle();
             }
+        }
+
+        private void MonkeyAppWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
