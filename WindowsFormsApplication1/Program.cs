@@ -16,7 +16,7 @@ namespace MonkeyProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MonkeyAppWindow());
+            Application.Run(new StartWindows());
         }
     }
 }
