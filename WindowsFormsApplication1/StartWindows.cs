@@ -24,7 +24,7 @@ namespace MonkeyProject
 
         private void beginTrial_Click(object sender, EventArgs e)
         {
-            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow();
+            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this);
             monkeyWindow.Show();
             this.Hide();
         }

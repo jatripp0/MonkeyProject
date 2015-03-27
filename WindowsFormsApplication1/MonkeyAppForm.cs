@@ -20,11 +20,12 @@ namespace MonkeyProject
         private int boxY;
         private int boxHeight;
         private int boxWidth;
+        private StartWindows sw;
 
-        public MonkeyAppWindow()
+        public MonkeyAppWindow(StartWindows sw)
         {
+            this.sw = sw;
             InitializeComponent();
-
         }
 
         private void drawCircle()
@@ -98,6 +99,13 @@ namespace MonkeyProject
             {
                 this.Invalidate();
             }
+        }
+
+        
+        public void Dispose()
+        {
+            base.Dispose();
+            sw.Show();
         }
 
         private void updateShapes(object sender, PaintEventArgs e)
