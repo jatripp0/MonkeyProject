@@ -36,7 +36,7 @@ namespace MonkeyProject
             this.min_radius = maxSquareLength / 20;
         }
 
-        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius)
+        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath)
         {
             InitializeComponent();
             this.sw = sw;
@@ -65,35 +65,10 @@ namespace MonkeyProject
         /// number of button presses are reset if the file is written.
         /// </summary>
         /// <returns>true if file is written, false otherwise.</returns>
-        private bool SaveFile()
-        {
-            SaveFileDialog fd = new SaveFileDialog();
-            fd.Filter = "CSV File (*.CSV)|*.csv";
-            fd.OverwritePrompt = false;
-            if (fd.ShowDialog() == DialogResult.OK)
-            {
-                string path = fd.FileName;
-                IEnumerable<String> dataLines = new string[] { };
-                if (!File.Exists(path))
-                {
-                    dataLines = dataLines.Concat(new string[] { "Apple,Banana,Orange" });
-                }
-                //dataLines = dataLines.Concat(new string[] { countApple.ToString() + "," + countBanana.ToString() + "," + countOrange.ToString() });
-
-                System.IO.File.AppendAllLines(path, dataLines);
-                //countApple = countBanana = countOrange = 0;
-                return true;
-            }
-            return false;
-        }
 
         private void ShortcutHandler(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.S)
-            {
-                SaveFile();
-            }
-            else if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Dispose();
             }
