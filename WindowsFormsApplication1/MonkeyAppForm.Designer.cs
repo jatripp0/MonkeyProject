@@ -19,7 +19,9 @@ namespace MonkeyProject
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
+            sw.Show();
         }
 
         #region Windows Form Designer generated code

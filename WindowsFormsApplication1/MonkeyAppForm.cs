@@ -22,34 +22,40 @@ namespace MonkeyProject
         private int boxWidth;
         private StartWindows sw;
 
+        private readonly int min_radius;
+        private readonly int max_radius;
+
         public MonkeyAppWindow(StartWindows sw)
         {
-            this.sw = sw;
             InitializeComponent();
+            this.sw = sw;
+            // Gets the minimum of the window
+            int maxSquareLength = Math.Min(this.Width, this.Height);
+            // max and min width of the circle
+            this.max_radius = maxSquareLength / 4;
+            this.min_radius = maxSquareLength / 20;
+        }
+
+        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius)
+        {
+            InitializeComponent();
+            this.sw = sw;
+            this.max_radius = max_radius;
+            this.min_radius = min_radius;
+
         }
 
         private void drawCircle()
         {
-            int maxSquareLength = Math.Min(this.Width, this.Height);
-
-            int canvasWidth = maxSquareLength;
-            int canvasHeight = maxSquareLength;
-
-            int max_width = canvasWidth / 4;
-            int max_height = canvasHeight / 4;
-
-            int min_width = canvasWidth / 20;
-            int min_height = canvasWidth / 20;
-
-            boxWidth = r.Next(max_width - min_width) + min_width;
-            //height = r.Next(max_height - min_height) + min_height;
+            // generate random circle within the bounds
+            boxWidth = r.Next(this.max_radius - this.min_radius) + this.min_radius;
             boxHeight = boxWidth;
 
+            // calculate X and Y position to draw the circle using the canvas size
             boxX = r.Next(this.Width - boxWidth);
             boxY = r.Next(this.Height - boxHeight);
 
             this.Invalidate();
-
         }
 
         /// <summary>
@@ -101,13 +107,6 @@ namespace MonkeyProject
             }
         }
 
-        
-        public void Dispose()
-        {
-            base.Dispose();
-            sw.Show();
-        }
-
         private void updateShapes(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -119,8 +118,6 @@ namespace MonkeyProject
             //g.DrawEllipse(Pens.Black, rect);
             SolidBrush sb = new SolidBrush(Color.CadetBlue);
             g.FillEllipse(sb, rect);
-
-
         }
 
         private void MonkeyPress(object sender, MouseEventArgs e)

@@ -24,7 +24,14 @@ namespace MonkeyProject
 
         private void beginTrial_Click(object sender, EventArgs e)
         {
-            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this);
+            int min_radius, max_radius;
+            min_radius = max_radius = (int)circleSizeSpinner.Value;
+            if (randomSizeCheck.Checked)
+            {
+                min_radius = (int)circleSizeMin.Value;
+                max_radius = (int)circleSizeMax.Value;
+            }
+            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius);
             monkeyWindow.Show();
             this.Hide();
         }
@@ -53,6 +60,25 @@ namespace MonkeyProject
             }
         }
 
+        private void checkConditions()
+        {
+            bool everythingIsOK = true;
+            if (randomSizeCheck.Checked)
+            {
+                if (circleSizeMin.Value > circleSizeMax.Value)
+                {
+                    everythingIsOK = false;
+                }
+            }
+
+            if (subjectName.Text.Equals(String.Empty))
+            {
+                everythingIsOK = false;
+            }
+
+            beginTrial.Enabled = everythingIsOK;
+        }
+
         private void trialManual_CheckedChanged(object sender, EventArgs e)
         {
             if (trialManual.Checked)
@@ -66,6 +92,21 @@ namespace MonkeyProject
                 trialTime.Enabled = true;
                 secondsLabel.Enabled = true;
             }
+        }
+
+        private void circleSizeMin_ValueChanged(object sender, EventArgs e)
+        {
+            checkConditions();
+        }
+
+        private void circleSizeMax_ValueChanged(object sender, EventArgs e)
+        {
+            checkConditions();
+        }
+
+        private void subjectName_TextChanged(object sender, EventArgs e)
+        {
+            checkConditions();
         }
     }
 }

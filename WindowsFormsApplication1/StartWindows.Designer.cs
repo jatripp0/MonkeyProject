@@ -56,39 +56,44 @@
             // 
             this.subject.AutoSize = true;
             this.subject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subject.Location = new System.Drawing.Point(12, 22);
+            this.subject.Location = new System.Drawing.Point(8, 14);
+            this.subject.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.subject.Name = "subject";
-            this.subject.Size = new System.Drawing.Size(178, 25);
+            this.subject.Size = new System.Drawing.Size(128, 17);
             this.subject.TabIndex = 0;
             this.subject.Text = "Trial Subject Name";
             // 
             // subjectName
             // 
-            this.subjectName.Location = new System.Drawing.Point(193, 23);
+            this.subjectName.Location = new System.Drawing.Point(129, 15);
+            this.subjectName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.subjectName.Name = "subjectName";
-            this.subjectName.Size = new System.Drawing.Size(573, 26);
+            this.subjectName.Size = new System.Drawing.Size(383, 20);
             this.subjectName.TabIndex = 1;
+            this.subjectName.TextChanged += new System.EventHandler(this.subjectName_TextChanged);
             // 
             // circleSizeLabel
             // 
             this.circleSizeLabel.AutoSize = true;
             this.circleSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circleSizeLabel.Location = new System.Drawing.Point(12, 75);
+            this.circleSizeLabel.Location = new System.Drawing.Point(8, 49);
+            this.circleSizeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.circleSizeLabel.Name = "circleSizeLabel";
-            this.circleSizeLabel.Size = new System.Drawing.Size(175, 25);
+            this.circleSizeLabel.Size = new System.Drawing.Size(123, 17);
             this.circleSizeLabel.TabIndex = 2;
             this.circleSizeLabel.Text = "Circle Size (pixels)";
             // 
             // circleSizeSpinner
             // 
-            this.circleSizeSpinner.Location = new System.Drawing.Point(193, 77);
+            this.circleSizeSpinner.Location = new System.Drawing.Point(129, 50);
+            this.circleSizeSpinner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.circleSizeSpinner.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.circleSizeSpinner.Name = "circleSizeSpinner";
-            this.circleSizeSpinner.Size = new System.Drawing.Size(120, 26);
+            this.circleSizeSpinner.Size = new System.Drawing.Size(80, 20);
             this.circleSizeSpinner.TabIndex = 3;
             // 
             // minSizeLabel
@@ -96,46 +101,53 @@
             this.minSizeLabel.AutoSize = true;
             this.minSizeLabel.Enabled = false;
             this.minSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.minSizeLabel.Location = new System.Drawing.Point(12, 152);
+            this.minSizeLabel.Location = new System.Drawing.Point(8, 99);
+            this.minSizeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.minSizeLabel.Name = "minSizeLabel";
-            this.minSizeLabel.Size = new System.Drawing.Size(93, 25);
+            this.minSizeLabel.Size = new System.Drawing.Size(65, 17);
             this.minSizeLabel.TabIndex = 4;
             this.minSizeLabel.Text = "Min. Size";
             // 
             // circleSizeMin
             // 
             this.circleSizeMin.Enabled = false;
-            this.circleSizeMin.Location = new System.Drawing.Point(110, 154);
+            this.circleSizeMin.Location = new System.Drawing.Point(73, 100);
+            this.circleSizeMin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.circleSizeMin.Name = "circleSizeMin";
-            this.circleSizeMin.Size = new System.Drawing.Size(80, 26);
+            this.circleSizeMin.Size = new System.Drawing.Size(53, 20);
             this.circleSizeMin.TabIndex = 0;
+            this.circleSizeMin.ValueChanged += new System.EventHandler(this.circleSizeMin_ValueChanged);
             // 
             // maxSizeLabel
             // 
             this.maxSizeLabel.AutoSize = true;
             this.maxSizeLabel.Enabled = false;
             this.maxSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxSizeLabel.Location = new System.Drawing.Point(196, 152);
+            this.maxSizeLabel.Location = new System.Drawing.Point(131, 99);
+            this.maxSizeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.maxSizeLabel.Name = "maxSizeLabel";
-            this.maxSizeLabel.Size = new System.Drawing.Size(99, 25);
+            this.maxSizeLabel.Size = new System.Drawing.Size(68, 17);
             this.maxSizeLabel.TabIndex = 5;
             this.maxSizeLabel.Text = "Max. Size";
             // 
             // circleSizeMax
             // 
             this.circleSizeMax.Enabled = false;
-            this.circleSizeMax.Location = new System.Drawing.Point(300, 154);
+            this.circleSizeMax.Location = new System.Drawing.Point(200, 100);
+            this.circleSizeMax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.circleSizeMax.Name = "circleSizeMax";
-            this.circleSizeMax.Size = new System.Drawing.Size(80, 26);
+            this.circleSizeMax.Size = new System.Drawing.Size(53, 20);
             this.circleSizeMax.TabIndex = 6;
+            this.circleSizeMax.ValueChanged += new System.EventHandler(this.circleSizeMax_ValueChanged);
             // 
             // randomSizeCheck
             // 
             this.randomSizeCheck.AutoSize = true;
             this.randomSizeCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.randomSizeCheck.Location = new System.Drawing.Point(17, 120);
+            this.randomSizeCheck.Location = new System.Drawing.Point(11, 78);
+            this.randomSizeCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.randomSizeCheck.Name = "randomSizeCheck";
-            this.randomSizeCheck.Size = new System.Drawing.Size(155, 29);
+            this.randomSizeCheck.Size = new System.Drawing.Size(111, 21);
             this.randomSizeCheck.TabIndex = 7;
             this.randomSizeCheck.Text = "Random Size";
             this.randomSizeCheck.UseVisualStyleBackColor = true;
@@ -145,9 +157,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 219);
+            this.label5.Location = new System.Drawing.Point(9, 142);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(196, 32);
+            this.label5.Size = new System.Drawing.Size(126, 24);
             this.label5.TabIndex = 8;
             this.label5.Text = "Trials Settings";
             // 
@@ -155,18 +168,21 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 279);
+            this.label6.Location = new System.Drawing.Point(9, 181);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(128, 25);
+            this.label6.Size = new System.Drawing.Size(94, 17);
             this.label6.TabIndex = 9;
             this.label6.Text = "Trial Duration";
             // 
             // beginTrial
             // 
+            this.beginTrial.Enabled = false;
             this.beginTrial.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.beginTrial.Location = new System.Drawing.Point(300, 450);
+            this.beginTrial.Location = new System.Drawing.Point(200, 292);
+            this.beginTrial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.beginTrial.Name = "beginTrial";
-            this.beginTrial.Size = new System.Drawing.Size(179, 52);
+            this.beginTrial.Size = new System.Drawing.Size(119, 34);
             this.beginTrial.TabIndex = 15;
             this.beginTrial.Text = "Begin";
             this.beginTrial.UseVisualStyleBackColor = true;
@@ -175,18 +191,20 @@
             // trialTime
             // 
             this.trialTime.Enabled = false;
-            this.trialTime.Location = new System.Drawing.Point(152, 59);
+            this.trialTime.Location = new System.Drawing.Point(101, 38);
+            this.trialTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trialTime.Name = "trialTime";
-            this.trialTime.Size = new System.Drawing.Size(96, 26);
+            this.trialTime.Size = new System.Drawing.Size(64, 20);
             this.trialTime.TabIndex = 12;
             // 
             // secondsLabel
             // 
             this.secondsLabel.AutoSize = true;
             this.secondsLabel.Enabled = false;
-            this.secondsLabel.Location = new System.Drawing.Point(254, 61);
+            this.secondsLabel.Location = new System.Drawing.Point(169, 40);
+            this.secondsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.secondsLabel.Name = "secondsLabel";
-            this.secondsLabel.Size = new System.Drawing.Size(69, 20);
+            this.secondsLabel.Size = new System.Drawing.Size(47, 13);
             this.secondsLabel.TabIndex = 13;
             this.secondsLabel.Text = "seconds";
             // 
@@ -195,9 +213,10 @@
             this.trialManual.AutoSize = true;
             this.trialManual.Checked = true;
             this.trialManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trialManual.Location = new System.Drawing.Point(16, 23);
+            this.trialManual.Location = new System.Drawing.Point(11, 15);
+            this.trialManual.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trialManual.Name = "trialManual";
-            this.trialManual.Size = new System.Drawing.Size(102, 29);
+            this.trialManual.Size = new System.Drawing.Size(72, 21);
             this.trialManual.TabIndex = 10;
             this.trialManual.TabStop = true;
             this.trialManual.Text = "Manual";
@@ -208,9 +227,10 @@
             // 
             this.trialTimeLimited.AutoSize = true;
             this.trialTimeLimited.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trialTimeLimited.Location = new System.Drawing.Point(152, 21);
+            this.trialTimeLimited.Location = new System.Drawing.Point(101, 14);
+            this.trialTimeLimited.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trialTimeLimited.Name = "trialTimeLimited";
-            this.trialTimeLimited.Size = new System.Drawing.Size(126, 29);
+            this.trialTimeLimited.Size = new System.Drawing.Size(90, 21);
             this.trialTimeLimited.TabIndex = 11;
             this.trialTimeLimited.Text = "Time Limit";
             this.trialTimeLimited.UseVisualStyleBackColor = true;
@@ -221,16 +241,17 @@
             this.panel1.Controls.Add(this.trialTime);
             this.panel1.Controls.Add(this.secondsLabel);
             this.panel1.Controls.Add(this.trialManual);
-            this.panel1.Location = new System.Drawing.Point(148, 254);
+            this.panel1.Location = new System.Drawing.Point(99, 165);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 100);
+            this.panel1.Size = new System.Drawing.Size(240, 65);
             this.panel1.TabIndex = 16;
             // 
             // StartWindows
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 544);
+            this.ClientSize = new System.Drawing.Size(519, 354);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.beginTrial);
             this.Controls.Add(this.label6);
@@ -244,6 +265,7 @@
             this.Controls.Add(this.circleSizeLabel);
             this.Controls.Add(this.subjectName);
             this.Controls.Add(this.subject);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "StartWindows";
             this.Text = "StartWindows";
             this.Load += new System.EventHandler(this.StartWindows_Load);
