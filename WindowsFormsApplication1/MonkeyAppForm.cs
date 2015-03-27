@@ -28,6 +28,8 @@ namespace MonkeyProject
         private readonly int max_radius;
         private readonly string filePath;
 
+        private int trialCount;
+
         private readonly List<RawDataField> ls;
 
         public MonkeyAppWindow(StartWindows sw, string filePath)
@@ -42,6 +44,8 @@ namespace MonkeyProject
 
             this.filePath = filePath;
 
+            this.trialCount = 0;
+
             this.ls = new List<RawDataField>();
         }
 
@@ -53,12 +57,15 @@ namespace MonkeyProject
             this.min_radius = min_radius;
             this.filePath = filePath;
 
+            this.trialCount = 0;
+
             this.ls = new List<RawDataField>();
         }
 
         private void drawCircle()
         {
             trialStart = DateTime.Now;
+            trialCount++;
 
             // generate random circle within the bounds
             boxWidth = r.Next(this.max_radius - this.min_radius) + this.min_radius;
@@ -104,7 +111,7 @@ namespace MonkeyProject
 
             //g.DrawRectangle(Pens.Black, rect);
             //g.DrawEllipse(Pens.Black, rect);
-            SolidBrush sb = new SolidBrush(Color.CadetBlue);
+            SolidBrush sb = new SolidBrush(Color.Black);
             g.FillEllipse(sb, rect);
         }
 
@@ -135,28 +142,36 @@ namespace MonkeyProject
             rdf.Distance = distance;
             rdf.CircleRadius = radius;
 
+            rdf.TrialNumber = trialCount;
+
             ls.Add(rdf);
 
             Console.WriteLine(distance);
 
             if (distance < radius)
             {
+                rdf.IsPressed = true;
                 drawCircle();
+            }
+            else
+            {
+                rdf.IsPressed = false;
             }
         }
 
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
-            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Distance"));
+            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance"));
             foreach (RawDataField rdf in ls)
             {
-                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                    rdf.Start.ToString("yyyy/MM/dd hh:mm:ss"),
-                    rdf.End.ToString("yyyy/MM/dd hh:mm:ss"),
-                    rdf.Time,
+                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
+                    rdf.TrialNumber,
+                    rdf.Start.ToString("yyyy/MM/dd HH:mm:ss"),
+                    rdf.End.ToString("yyyy/MM/dd HH:mm:ss"),
+                    rdf.Time.Milliseconds,
                     rdf.CircleRadius,
-                    rdf.ButtonX, rdf.ButtonY, rdf.ClickX, rdf.ClickY, rdf.Distance);
+                    rdf.ButtonX, rdf.ButtonY, rdf.ClickX, rdf.ClickY,rdf.IsPressed, rdf.Distance);
                 dataLines.Add(csvRow);
             }
             System.IO.File.WriteAllLines(filePath, dataLines);
@@ -179,6 +194,8 @@ namespace MonkeyProject
         public TimeSpan Time { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public Boolean IsPressed { get; set; }
+        public int TrialNumber { get; set; }
 
     }
 }
