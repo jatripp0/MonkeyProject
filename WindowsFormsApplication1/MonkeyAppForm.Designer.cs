@@ -19,7 +19,7 @@ namespace MonkeyProject
             {
                 components.Dispose();
             }
-
+            SaveResults();
             base.Dispose(disposing);
             sw.Show();
         }
