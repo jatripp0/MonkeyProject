@@ -1,4 +1,7 @@
-﻿namespace MonkeyProject
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace MonkeyProject
 {
     partial class StartWindows
     {
@@ -46,6 +49,8 @@
             this.trialManual = new System.Windows.Forms.RadioButton();
             this.trialTimeLimited = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numTrialsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.numTrialsLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.filePath = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trialTime)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrialsUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // subject
@@ -89,7 +95,7 @@
             // 
             this.circleSizeSpinner.Location = new System.Drawing.Point(194, 124);
             this.circleSizeSpinner.Maximum = new decimal(new int[] {
-            1000,
+            750,
             0,
             0,
             0});
@@ -132,6 +138,11 @@
             // 
             this.circleSizeMax.Enabled = false;
             this.circleSizeMax.Location = new System.Drawing.Point(300, 201);
+            this.circleSizeMax.Maximum = new decimal(new int[] {
+            750,
+            0,
+            0,
+            0});
             this.circleSizeMax.Name = "circleSizeMax";
             this.circleSizeMax.Size = new System.Drawing.Size(80, 26);
             this.circleSizeMax.TabIndex = 6;
@@ -185,9 +196,25 @@
             // 
             this.trialTime.Enabled = false;
             this.trialTime.Location = new System.Drawing.Point(152, 58);
+            this.trialTime.Maximum = new decimal(new int[] {
+            86400,
+            0,
+            0,
+            0});
+            this.trialTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.trialTime.Name = "trialTime";
             this.trialTime.Size = new System.Drawing.Size(96, 26);
             this.trialTime.TabIndex = 12;
+            this.trialTime.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.trialTime.ValueChanged += new System.EventHandler(this.trialTime_ValueChanged);
             // 
             // secondsLabel
             // 
@@ -226,14 +253,46 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.numTrialsUpDown);
+            this.panel1.Controls.Add(this.numTrialsLabel);
             this.panel1.Controls.Add(this.trialTimeLimited);
             this.panel1.Controls.Add(this.trialTime);
             this.panel1.Controls.Add(this.secondsLabel);
             this.panel1.Controls.Add(this.trialManual);
             this.panel1.Location = new System.Drawing.Point(148, 301);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 100);
+            this.panel1.Size = new System.Drawing.Size(557, 100);
             this.panel1.TabIndex = 16;
+            // 
+            // numTrialsUpDown
+            // 
+            this.numTrialsUpDown.Enabled = false;
+            this.numTrialsUpDown.Location = new System.Drawing.Point(418, 25);
+            this.numTrialsUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTrialsUpDown.Name = "numTrialsUpDown";
+            this.numTrialsUpDown.Size = new System.Drawing.Size(120, 26);
+            this.numTrialsUpDown.TabIndex = 21;
+            this.numTrialsUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTrialsUpDown.ValueChanged += new System.EventHandler(this.numTrialsUpDown_ValueChanged);
+            // 
+            // numTrialsLabel
+            // 
+            this.numTrialsLabel.AutoSize = true;
+            this.numTrialsLabel.Enabled = false;
+            this.numTrialsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numTrialsLabel.Location = new System.Drawing.Point(315, 24);
+            this.numTrialsLabel.Name = "numTrialsLabel";
+            this.numTrialsLabel.Size = new System.Drawing.Size(97, 25);
+            this.numTrialsLabel.TabIndex = 20;
+            this.numTrialsLabel.Text = "# of Trials";
             // 
             // label1
             // 
@@ -287,7 +346,7 @@
             this.Controls.Add(this.subjectName);
             this.Controls.Add(this.subject);
             this.Name = "StartWindows";
-            this.Text = "StartWindows";
+            this.Text = "Configuration";
             this.Load += new System.EventHandler(this.StartWindows_Load);
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeSpinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMin)).EndInit();
@@ -295,6 +354,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trialTime)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrialsUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,5 +383,7 @@
         private System.Windows.Forms.TextBox filePath;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private NumericUpDown numTrialsUpDown;
+        private Label numTrialsLabel;
     }
 }

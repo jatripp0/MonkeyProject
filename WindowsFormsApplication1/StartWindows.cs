@@ -13,6 +13,9 @@ namespace MonkeyProject
 {
     public partial class StartWindows : Form
     {
+        private Boolean isTimed;
+        private int trialSeconds;
+        private int numTrials;
 
         public StartWindows()
         {
@@ -46,7 +49,7 @@ namespace MonkeyProject
                     return;
                 }
             }
-            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path);
+            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials);
             monkeyWindow.Show();
             this.Hide();
         }
@@ -95,7 +98,6 @@ namespace MonkeyProject
                 everythingIsOK = false;
             }
 
-
             beginTrial.Enabled = everythingIsOK;
         }
 
@@ -105,12 +107,18 @@ namespace MonkeyProject
             {
                 trialTime.Enabled = false;
                 secondsLabel.Enabled = false;
+                numTrialsLabel.Enabled = false;
+                numTrialsUpDown.Enabled = false;
+                isTimed = false;
             }
             else
             {
                 trialTimeLimited.Enabled = true;
                 trialTime.Enabled = true;
                 secondsLabel.Enabled = true;
+                numTrialsLabel.Enabled = true;
+                numTrialsUpDown.Enabled = true;
+                isTimed = true;
             }
         }
 
@@ -150,5 +158,14 @@ namespace MonkeyProject
             checkConditions();
         }
 
+        private void trialTime_ValueChanged(object sender, EventArgs e)
+        {
+            trialSeconds = (int)trialTime.Value * 1000;
+        }
+
+        private void numTrialsUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            numTrials = (int)numTrialsUpDown.Value;
+        }
     }
 }

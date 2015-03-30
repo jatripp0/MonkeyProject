@@ -8,6 +8,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Windows.Forms.Timer;
 
 namespace MonkeyProject
 {
@@ -20,6 +21,9 @@ namespace MonkeyProject
         private int boxY;
         private int boxHeight;
         private int boxWidth;
+        private int radius;
+        private int centerX;
+        private int centerY;
 
         private DateTime trialStart;
 
@@ -29,10 +33,17 @@ namespace MonkeyProject
         private readonly string filePath;
 
         private int trialCount;
+        private int trialTime;
+        private int numTrials;
+        private int trialsCompleted;
+        private Boolean isTimed;
+        private Timer timer;
+
+        private Boolean isScreenPressed;
 
         private readonly List<RawDataField> ls;
 
-        public MonkeyAppWindow(StartWindows sw, string filePath)
+        public MonkeyAppWindow(StartWindows sw, string filePath, Boolean isTimed, int trialTime, int numTrials)
         {
             InitializeComponent();
             this.sw = sw;
@@ -46,10 +57,18 @@ namespace MonkeyProject
 
             this.trialCount = 0;
 
+            this.isTimed = isTimed;
+            this.trialTime = trialTime;
+            this.numTrials = numTrials;
+            this.trialsCompleted = 0;
+            timer = new Timer();
+
+            isScreenPressed = false;
+
             this.ls = new List<RawDataField>();
         }
 
-        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath)
+        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials)
         {
             InitializeComponent();
             this.sw = sw;
@@ -58,6 +77,14 @@ namespace MonkeyProject
             this.filePath = filePath;
 
             this.trialCount = 0;
+
+            this.isTimed = isTimed;
+            this.trialTime = trialTime;
+            this.numTrials = numTrials;
+            this.trialsCompleted = 0;
+            timer = new Timer();
+
+            isScreenPressed = false;
 
             this.ls = new List<RawDataField>();
         }
@@ -70,10 +97,14 @@ namespace MonkeyProject
             // generate random circle within the bounds
             boxWidth = r.Next(this.max_radius - this.min_radius) + this.min_radius;
             boxHeight = boxWidth;
+            radius = (boxHeight / 2);
 
             // calculate X and Y position to draw the circle using the canvas size
             boxX = r.Next(this.Width - boxWidth);
             boxY = r.Next(this.Height - boxHeight);
+            centerX = boxX + (boxWidth / 2);
+            centerY = boxY + (boxHeight / 2);
+
 
             this.Invalidate();
         }
@@ -94,7 +125,15 @@ namespace MonkeyProject
             }
             else if (e.KeyCode == Keys.C)
             {
-                drawCircle();
+                if (isTimed == true)
+                {
+                    drawCircle();
+                    timer.Start();
+                }
+                else
+                {
+                    drawCircle();
+                }
             }
             else if (e.Control && e.KeyCode == Keys.R)
             {
@@ -117,18 +156,16 @@ namespace MonkeyProject
 
         private void MonkeyPress(object sender, MouseEventArgs e)
         {
-            int centerX = boxX + (boxWidth / 2);
-            int centerY = boxY + (boxHeight / 2);
+            RawDataField rdf = new RawDataField();
+
             int x2 = e.X;
             int y2 = e.Y;
 
             int distance = (int)ShapeCalculator.PointDistance(centerX, centerY, x2, y2);
-            int radius = (boxHeight / 2);
 
             DateTime trialEnd = DateTime.Now;
             TimeSpan ts = trialEnd.Subtract(trialStart);
 
-            RawDataField rdf = new RawDataField();
             rdf.Start = trialStart;
             rdf.End = trialEnd;
             rdf.Time = ts;
@@ -151,12 +188,21 @@ namespace MonkeyProject
             if (distance < radius)
             {
                 rdf.IsPressed = true;
-                drawCircle();
+                if (isTimed == true)
+                {
+                    timer1_Tick(null, null);
+                }
+                else
+                {
+                    drawCircle();
+                }
             }
             else
             {
                 rdf.IsPressed = false;
             }
+
+            isScreenPressed = true;
         }
 
         private void SaveResults()
@@ -179,7 +225,46 @@ namespace MonkeyProject
 
         private void MonkeyAppWindow_Load(object sender, EventArgs e)
         {
+            timer.Interval = trialTime;
+            timer.Enabled = true;
+            timer.Tick += new EventHandler(timer1_Tick);
+        }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (isScreenPressed == false)
+            {
+                RawDataField rdf = new RawDataField();
+
+                rdf.IsPressed = false;
+                DateTime trialEnd = DateTime.Now;
+                TimeSpan ts = trialEnd.Subtract(trialStart);
+
+                rdf.Start = trialStart;
+                rdf.End = trialEnd;
+                rdf.Time = ts;
+
+                rdf.ButtonX = centerX;
+                rdf.ButtonY = centerY;
+
+                rdf.CircleRadius = radius;
+
+                rdf.TrialNumber = trialCount;
+
+                ls.Add(rdf);
+            }
+
+            trialsCompleted++;
+
+            if (trialsCompleted < numTrials)
+            {
+                drawCircle();
+            }
+            else
+            {
+                timer.Enabled = false;
+                this.Dispose();
+            }
         }
     }
 
