@@ -340,7 +340,7 @@ namespace MonkeyProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 545);
+            this.ClientSize = new System.Drawing.Size(778, 544);
             this.Controls.Add(this.circleColor);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.filePath);
@@ -358,6 +358,9 @@ namespace MonkeyProject
             this.Controls.Add(this.circleSizeLabel);
             this.Controls.Add(this.subjectName);
             this.Controls.Add(this.subject);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(800, 600);
+            this.MinimizeBox = false;
             this.Name = "StartWindows";
             this.Text = "Configuration";
             this.Load += new System.EventHandler(this.StartWindows_Load);

@@ -262,25 +262,32 @@ namespace MonkeyProject
         /// <returns>Returns true if the file is locked, false if it is not.</returns>
         public bool IsFileLocked(string filePath)
         {
-            try
+            if (File.Exists(filePath))
             {
-                using (File.Open(filePath, FileMode.Open)) { }
+                try
+                {
+                    using (File.Open(filePath, FileMode.Open)) { }
+                }
+                catch (IOException)
+                {
+                    string messageBoxText = "The file is currently being used in another application. \n Please close the application and try again. \n" + path;
+                    string caption = "Warning";
+                    MessageBoxButtons button = MessageBoxButtons.OK;
+                    MessageBoxIcon icon = MessageBoxIcon.Warning;
+                    DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    return true;
+                    //var errorCode = Marshal.GetHRForException(e) & ((1 << 16) - 1);
+
+                    //return errorCode == 32 || errorCode == 33;
+                }
+
+                return false;
             }
-            catch (IOException)
+            else
             {
-                string messageBoxText = "The file is currently being used in another application. \n Please close the application and try again. \n" + path;
-                string caption = "Warning";
-                MessageBoxButtons button = MessageBoxButtons.OK;
-                MessageBoxIcon icon = MessageBoxIcon.Warning;
-                DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon);
-
-                return true;
-                //var errorCode = Marshal.GetHRForException(e) & ((1 << 16) - 1);
-
-                //return errorCode == 32 || errorCode == 33;
+                return false;
             }
-
-            return false;
         }
 
         /// <summary>

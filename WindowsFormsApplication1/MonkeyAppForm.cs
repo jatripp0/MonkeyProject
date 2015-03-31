@@ -57,6 +57,7 @@ namespace MonkeyProject
         private Timer timer;
 
         private Boolean isScreenPressed;
+        private Boolean isCirclePressed;
 
         private readonly List<RawDataField> ls;
 
@@ -118,6 +119,7 @@ namespace MonkeyProject
             timer = new Timer();
 
             isScreenPressed = false;
+            isCirclePressed = false;
 
             this.ls = new List<RawDataField>();
         }
@@ -166,8 +168,9 @@ namespace MonkeyProject
             {
                 if (isTimed == true)
                 {
-                    drawCircle();
+                    timer.Enabled = true;
                     timer.Start();
+                    drawCircle();
                 }
                 else
                 {
@@ -234,7 +237,9 @@ namespace MonkeyProject
 
             if (distance < radius)
             {
+                isCirclePressed = true;
                 rdf.IsPressed = true;
+                rdf.IsTimedOut = false;
                 if (isTimed == true)
                 {
                     resetTimer(); //resets the interval of the Timer so that trial durations are not interrupted by a redraw of the circle.
@@ -247,7 +252,9 @@ namespace MonkeyProject
             }
             else
             {
+                isCirclePressed = false;
                 rdf.IsPressed = false;
+                rdf.IsTimedOut = false;
             }
 
             isScreenPressed = true;
@@ -262,16 +269,16 @@ namespace MonkeyProject
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
-            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance"));
+            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance", "Is Timed Out"));
             foreach (RawDataField rdf in ls)
             {
-                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
+                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}",
                     rdf.TrialNumber,
                     rdf.Start.ToString("yyyy/MM/dd HH:mm:ss"),
                     rdf.End.ToString("yyyy/MM/dd HH:mm:ss"),
-                    rdf.Time.Milliseconds,
+                    rdf.Time.TotalMilliseconds,
                     rdf.CircleRadius,
-                    rdf.ButtonX, rdf.ButtonY, rdf.ClickX, rdf.ClickY,rdf.IsPressed, rdf.Distance);
+                    rdf.ButtonX, rdf.ButtonY, rdf.ClickX, rdf.ClickY,rdf.IsPressed, rdf.Distance, rdf.IsTimedOut);
                 dataLines.Add(csvRow);
             }
             System.IO.File.WriteAllLines(filePath, dataLines);
@@ -283,10 +290,10 @@ namespace MonkeyProject
         /// </summary>
         private void MonkeyAppWindow_Load(object sender, EventArgs e)
         {
+            Cursor.Hide();
             if (isTimed == true)
             {
                 timer.Interval = trialTime;
-                timer.Enabled = true;
                 timer.Tick += new EventHandler(timer1_Tick);
             }
         }
@@ -301,6 +308,7 @@ namespace MonkeyProject
                 RawDataField rdf = new RawDataField();
 
                 rdf.IsPressed = false;
+                rdf.IsTimedOut = true;
                 DateTime trialEnd = DateTime.Now;
                 TimeSpan ts = trialEnd.Subtract(trialStart);
 
@@ -316,6 +324,33 @@ namespace MonkeyProject
                 rdf.TrialNumber = trialCount;
 
                 ls.Add(rdf);
+            }
+            else if (isScreenPressed == true)
+            {
+                if (isCirclePressed == false)
+                {
+                    RawDataField rdf = new RawDataField();
+
+                    rdf.IsPressed = false;
+                    rdf.IsTimedOut = true;
+                    DateTime trialEnd = DateTime.Now;
+                    TimeSpan ts = trialEnd.Subtract(trialStart);
+
+                    rdf.Start = trialStart;
+                    rdf.End = trialEnd;
+                    rdf.Time = ts;
+
+                    rdf.ButtonX = centerX;
+                    rdf.ButtonY = centerY;
+
+                    rdf.CircleRadius = radius;
+
+                    rdf.TrialNumber = trialCount;
+
+                    rdf.IsTimedOut = true;
+
+                    ls.Add(rdf);
+                }
             }
 
             trialsCompleted++;
@@ -360,6 +395,7 @@ namespace MonkeyProject
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public Boolean IsPressed { get; set; }
+        public Boolean IsTimedOut { get; set; }
         public int TrialNumber { get; set; }
 
     }

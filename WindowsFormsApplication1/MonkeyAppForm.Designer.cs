@@ -23,6 +23,7 @@ namespace MonkeyProject
             }
             SaveResults();
             base.Dispose(disposing);
+            Cursor.Show();
             sw.Show();
         }
 
