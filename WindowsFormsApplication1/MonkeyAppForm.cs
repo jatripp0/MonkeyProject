@@ -235,6 +235,7 @@ namespace MonkeyProject
                 rdf.IsPressed = true;
                 if (isTimed == true)
                 {
+                    resetTimer(); //resets the interval of the Timer so that trial durations are not interrupted by a redraw of the circle.
                     timer1_Tick(null, null);
                 }
                 else
@@ -326,6 +327,17 @@ namespace MonkeyProject
                 timer.Enabled = false;
                 this.Dispose();
             }
+        }
+
+        /// <summary>
+        /// This method will reset the interval of the Timer used
+        /// to control trial durations. Each time the button on the
+        /// screen is pushed, the timer should reset.
+        /// </summary>
+        private void resetTimer()
+        {
+            timer.Stop();
+            timer.Start();
         }
 
         #endregion
