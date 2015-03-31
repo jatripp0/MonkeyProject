@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +14,25 @@ namespace MonkeyProject
 {
     public partial class StartWindows : Form
     {
+        #region Class Fields
+
+        /// <summary>
+        /// Fields which define the trial duration(s) in seconds,
+        /// the number of trials, whether or not the trials are
+        /// time based or not, and the output path of the data
+        /// log file. Each of these fields are set to the
+        /// corresponding values from the configuration panel.
+        /// </summary>
         private Boolean isTimed;
         private int trialSeconds;
         private int numTrials;
+        private string path;
 
+        #endregion
+
+        /// <summary>
+        /// Initializes Configuration Panel
+        /// </summary>
         public StartWindows()
         {
             InitializeComponent();
@@ -27,15 +43,29 @@ namespace MonkeyProject
 
         }
 
+        #region Configuration Panel Event Handlers
+
+        /// <summary>
+        /// Prepares configuration values and file path information to 
+        /// be passed as parameters to the MonkeyAppForm. Also checks 
+        /// for pre-existing files in the same directory and promts the 
+        /// user to overwrite the file if desired.
+        /// Finally, the MonkeyAppWindow is displayed and the configuration
+        /// panel is hidden from view.
+        /// </summary>
         private void beginTrial_Click(object sender, EventArgs e)
         {
-            string path = filePath.Text + "\\" + subjectName.Text + ".csv"; 
+            path = filePath.Text + "\\" + subjectName.Text + ".csv"; 
             int min_radius, max_radius;
             min_radius = max_radius = (int)circleSizeSpinner.Value;
             if (randomSizeCheck.Checked)
             {
                 min_radius = (int)circleSizeMin.Value;
                 max_radius = (int)circleSizeMax.Value;
+            }
+            if (IsFileLocked(path) == true)
+            {
+                return;
             }
             if (File.Exists(path))
             {
@@ -54,6 +84,12 @@ namespace MonkeyProject
             this.Hide();
         }
 
+        /// <summary>
+        /// Enables or disables configuration panel controls relating
+        /// to the size of the circle depending on whether the circle 
+        /// is to be of a static diameter, or random within a set minimum
+        /// and maximum diameter.
+        /// </summary>
         private void randomSizeCheck_CheckedChanged(object sender, EventArgs e)
         {
             if (randomSizeCheck.Checked)
@@ -78,6 +114,9 @@ namespace MonkeyProject
             }
         }
 
+        /// <summary>
+        /// Enables the "Begin" button only if each condition defined is met.
+        /// </summary>
         private void checkConditions()
         {
             bool everythingIsOK = true;
@@ -101,6 +140,12 @@ namespace MonkeyProject
             beginTrial.Enabled = everythingIsOK;
         }
 
+        /// <summary>
+        /// Enables or disables configuration panel controls relating
+        /// to the duration of each trial depending on whether or not
+        /// the user sets the trials to be controlled manually, or to
+        /// be controlled by a timer.
+        /// </summary>
         private void trialManual_CheckedChanged(object sender, EventArgs e)
         {
             if (trialManual.Checked)
@@ -122,21 +167,40 @@ namespace MonkeyProject
             }
         }
 
+        /// <summary>
+        /// Calls the checkConditions method any time the minimum random size
+        /// of the circle is set, in case the "Begin" button should be disabled
+        /// due to an invalid value.
+        /// </summary>
         private void circleSizeMin_ValueChanged(object sender, EventArgs e)
         {
             checkConditions();
         }
 
+        /// <summary>
+        /// Calls the checkConditions method any time the maximum random size
+        /// of the circle is set, in case the "Begin" button should be disabled
+        /// due to an invalid value.
+        /// </summary>
         private void circleSizeMax_ValueChanged(object sender, EventArgs e)
         {
             checkConditions();
         }
 
+        /// <summary>
+        /// Calls the checkConditions method any time the subject name of the
+        /// session is set, in case the "Begin" button should be disabled due
+        /// to an invalid value.
+        /// </summary>
         private void subjectName_TextChanged(object sender, EventArgs e)
         {
             checkConditions();
         }
 
+        /// <summary>
+        /// Displays a folder browser dialog box to select the folder path for
+        /// the session data file.
+        /// </summary>
         private void SelectDirectory()
         {
             FolderBrowserDialog fd = new FolderBrowserDialog();
@@ -148,24 +212,74 @@ namespace MonkeyProject
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Calls the SelectDirectory method whenever the "Browse" button is pressed.
+        /// </summary>
+        private void browseButton_Click(object sender, EventArgs e)
         {
             SelectDirectory();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Calls the checkConditions method whenever the text of the folder
+        /// path is changed in case the "Begin" button should be disabled due
+        /// to an invalid value.
+        /// </summary>
+        private void folderPath_TextChanged(object sender, EventArgs e)
         {
             checkConditions();
         }
 
+        /// <summary>
+        /// Sets the duration of the trials to the value entered in the configuration
+        /// panel, converted to milliseconds.
+        /// </summary>
         private void trialTime_ValueChanged(object sender, EventArgs e)
         {
             trialSeconds = (int)trialTime.Value * 1000;
         }
 
+        /// <summary>
+        /// Sets the number of trials to be executed to the value entered in
+        /// the configuration panel.
+        /// </summary>
         private void numTrialsUpDown_ValueChanged(object sender, EventArgs e)
         {
             numTrials = (int)numTrialsUpDown.Value;
         }
+
+        /// <summary>
+        /// This method attempts to access the file at the path created by the
+        /// configuration panel. If the file exists and is in use by another
+        /// program, an error message is displayed and the user is instructed
+        /// to close the application that is using the file. Pressing okay 
+        /// returns the user to the configuration panel.
+        /// </summary>
+        /// <param name="filePath">Path of the data log file to be created.</param>
+        /// <returns>Returns true if the file is locked, false if it is not.</returns>
+        public bool IsFileLocked(string filePath)
+        {
+            try
+            {
+                using (File.Open(filePath, FileMode.Open)) { }
+            }
+            catch (IOException)
+            {
+                string messageBoxText = "The file is currently being used in another application. \n Please close the application and try again. \n" + path;
+                string caption = "Warning";
+                MessageBoxButtons button = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Warning;
+                DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                return true;
+                //var errorCode = Marshal.GetHRForException(e) & ((1 << 16) - 1);
+
+                //return errorCode == 32 || errorCode == 33;
+            }
+
+            return false;
+        }
+
+        #endregion
     }
 }

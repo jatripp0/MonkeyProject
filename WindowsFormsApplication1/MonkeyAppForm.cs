@@ -12,9 +12,24 @@ using System.Windows.Forms;
 
 namespace MonkeyProject
 {
+    /// <summary>
+    /// This class contains the code to execute trials, by
+    /// drawing circles to a canvas which act as buttons. The
+    /// properties and behavior of the circles and trials are 
+    /// defined by input parameters from the configuration panel.
+    /// </summary>
     public partial class MonkeyAppWindow : Form
     {
+        #region Class Fields
 
+        /// <summary>
+        /// Fields to define: circle position and size, trial start 
+        /// time, min and max radius (if randomly generated), the
+        /// file path for the data, trial count and duration, number
+        /// of trials, number of trials completed, whether the trials
+        /// are timed, the trial timer, whether the screen is pressed,
+        /// and the list which will contain the data log.
+        /// </summary>
         private readonly Random r = new Random();
 
         private int boxX;
@@ -30,6 +45,7 @@ namespace MonkeyProject
         private readonly StartWindows sw;
         private readonly int min_radius;
         private readonly int max_radius;
+
         private readonly string filePath;
 
         private int trialCount;
@@ -43,7 +59,11 @@ namespace MonkeyProject
 
         private readonly List<RawDataField> ls;
 
-        public MonkeyAppWindow(StartWindows sw, string filePath, Boolean isTimed, int trialTime, int numTrials)
+        #endregion
+
+        #region Class Constructors
+        //This overloaded constructor is no longer used by the program. Consider Removing.
+        /*public MonkeyAppWindow(StartWindows sw, string filePath, Boolean isTimed, int trialTime, int numTrials)
         {
             InitializeComponent();
             this.sw = sw;
@@ -66,8 +86,19 @@ namespace MonkeyProject
             isScreenPressed = false;
 
             this.ls = new List<RawDataField>();
-        }
+        }*/
 
+        /// <summary>
+        /// This is the constructor of the class, which will assign
+        /// values to the class' fields from its parameters. 
+        /// </summary>
+        /// <param name="sw">Instance of start window, or configuration panel.</param>
+        /// <param name="min_radius">Minimum circle radius (if circle generation is random)</param>
+        /// <param name="max_radius">Maximum circle radius (if circle generation is random)</param>
+        /// <param name="filePath">Designated file path for the data log to be generated.</param>
+        /// <param name="isTimed">Boolean variable to determine if trials are timed.</param>
+        /// <param name="trialTime">Duration of trials (if timed)</param>
+        /// <param name="numTrials">Number of trials to be run (if timed)</param>
         public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials)
         {
             InitializeComponent();
@@ -89,6 +120,17 @@ namespace MonkeyProject
             this.ls = new List<RawDataField>();
         }
 
+        #endregion
+
+        #region Class Methods Which Handle Trial Execution
+
+        /// <summary>
+        /// This method decides where on the screen a circle (button)
+        /// should be drawn given the resolution of the screen and 
+        /// the input size for the circle. It also increments the 
+        /// trial cound and initializes a DateTime object to track when
+        /// each circle is created.
+        /// </summary>
         private void drawCircle()
         {
             trialStart = DateTime.Now;
@@ -110,13 +152,8 @@ namespace MonkeyProject
         }
 
         /// <summary>
-        /// Displays a save dialog for a CSV file and writes to it. If the file
-        /// already exists, the data will be appended. If not, the header will
-        /// be written before the data is appended. Additionally, data for the
-        /// number of button presses are reset if the file is written.
+        /// Handles shortcuts to draw the circle/start the timer and to escape from the program.
         /// </summary>
-        /// <returns>true if file is written, false otherwise.</returns>
-
         private void ShortcutHandler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -135,12 +172,12 @@ namespace MonkeyProject
                     drawCircle();
                 }
             }
-            else if (e.Control && e.KeyCode == Keys.R)
-            {
-                this.Invalidate();
-            }
         }
 
+        /// <summary>
+        /// This method is responsible for drawing the circle to the screen
+        /// using the coordinates and dimensions set by the other methods.
+        /// </summary>
         private void updateShapes(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -154,6 +191,14 @@ namespace MonkeyProject
             g.FillEllipse(sb, rect);
         }
 
+        /// <summary>
+        /// Handles data collection whenever a press, whether by mouse
+        /// or by touch, is registered on the screen. This method also
+        /// handles what should be done if the timer is enabled but a
+        /// press is registered. In its current implementation, the 
+        /// result will be that the timer's "Tick" event will be triggered,
+        /// causing a circle to be drawn without waiting for the timer.
+        /// </summary>
         private void MonkeyPress(object sender, MouseEventArgs e)
         {
             RawDataField rdf = new RawDataField();
@@ -205,6 +250,12 @@ namespace MonkeyProject
             isScreenPressed = true;
         }
 
+        /// <summary>
+        /// On exit from the program, this method will be
+        /// executed to save the collected data to a .csv 
+        /// file at the path specified by the configuration
+        /// panel.
+        /// </summary>
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
@@ -223,13 +274,23 @@ namespace MonkeyProject
             System.IO.File.WriteAllLines(filePath, dataLines);
         }
 
+        /// <summary>
+        /// On load, the properties of the trial timer, if used,
+        /// are set and the timer is enabled.
+        /// </summary>
         private void MonkeyAppWindow_Load(object sender, EventArgs e)
         {
-            timer.Interval = trialTime;
-            timer.Enabled = true;
-            timer.Tick += new EventHandler(timer1_Tick);
+            if (isTimed == true)
+            {
+                timer.Interval = trialTime;
+                timer.Enabled = true;
+                timer.Tick += new EventHandler(timer1_Tick);
+            }
         }
 
+        /// <summary>
+        /// "Tick" event for the timer, which is called every time the interval for the timer passes.
+        /// </summary>
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (isScreenPressed == false)
@@ -266,8 +327,13 @@ namespace MonkeyProject
                 this.Dispose();
             }
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// Class which holds all raw data fields collected by the application.
+    /// </summary>
     class RawDataField
     {
         public int Distance { get; set; }

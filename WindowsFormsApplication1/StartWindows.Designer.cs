@@ -53,7 +53,7 @@ namespace MonkeyProject
             this.numTrialsLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.filePath = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.browseButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMin)).BeginInit();
@@ -312,24 +312,24 @@ namespace MonkeyProject
             this.filePath.ReadOnly = true;
             this.filePath.Size = new System.Drawing.Size(375, 26);
             this.filePath.TabIndex = 18;
-            this.filePath.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.filePath.TextChanged += new System.EventHandler(this.folderPath_TextChanged);
             // 
-            // button1
+            // browseButton
             // 
-            this.button1.Location = new System.Drawing.Point(514, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 41);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.browseButton.Location = new System.Drawing.Point(514, 23);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(103, 41);
+            this.browseButton.TabIndex = 19;
+            this.browseButton.Text = "Browse";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
             // StartWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 545);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.browseButton);
             this.Controls.Add(this.filePath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -381,7 +381,7 @@ namespace MonkeyProject
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox filePath;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.ToolTip toolTip1;
         private NumericUpDown numTrialsUpDown;
         private Label numTrialsLabel;
