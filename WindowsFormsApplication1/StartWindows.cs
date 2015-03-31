@@ -19,14 +19,16 @@ namespace MonkeyProject
         /// <summary>
         /// Fields which define the trial duration(s) in seconds,
         /// the number of trials, whether or not the trials are
-        /// time based or not, and the output path of the data
-        /// log file. Each of these fields are set to the
-        /// corresponding values from the configuration panel.
+        /// time based or not, the output path of the data
+        /// log file, and the color of the cirlce (if changed). 
+        /// Each of these fields are set to the corresponding
+        /// values from the configuration panel.
         /// </summary>
         private Boolean isTimed;
         private int trialSeconds;
         private int numTrials;
         private string path;
+        private Color cirColor;
 
         #endregion
 
@@ -35,12 +37,13 @@ namespace MonkeyProject
         /// </summary>
         public StartWindows()
         {
+            cirColor = Color.Black;
             InitializeComponent();
         }
 
         private void StartWindows_Load(object sender, EventArgs e)
         {
-
+            trialSeconds = (int)trialTime.Value * 1000;
         }
 
         #region Configuration Panel Event Handlers
@@ -79,7 +82,7 @@ namespace MonkeyProject
                     return;
                 }
             }
-            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials);
+            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials, cirColor);
             monkeyWindow.Show();
             this.Hide();
         }
@@ -280,6 +283,16 @@ namespace MonkeyProject
             return false;
         }
 
+        /// <summary>
+        /// Changes the circle color field if the color picker dialog is opened.
+        /// </summary>
+        private void circleColor_Click(object sender, EventArgs e)
+        {
+            circleColorDialog.ShowDialog();
+            cirColor = circleColorDialog.Color;
+        }
+
         #endregion
+
     }
 }

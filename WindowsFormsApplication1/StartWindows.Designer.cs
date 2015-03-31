@@ -55,6 +55,8 @@ namespace MonkeyProject
             this.filePath = new System.Windows.Forms.TextBox();
             this.browseButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.circleColor = new System.Windows.Forms.Button();
+            this.circleColorDialog = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMax)).BeginInit();
@@ -210,7 +212,7 @@ namespace MonkeyProject
             this.trialTime.Size = new System.Drawing.Size(96, 26);
             this.trialTime.TabIndex = 12;
             this.trialTime.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});
@@ -324,11 +326,22 @@ namespace MonkeyProject
             this.browseButton.UseVisualStyleBackColor = true;
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
+            // circleColor
+            // 
+            this.circleColor.Location = new System.Drawing.Point(375, 122);
+            this.circleColor.Name = "circleColor";
+            this.circleColor.Size = new System.Drawing.Size(103, 41);
+            this.circleColor.TabIndex = 20;
+            this.circleColor.Text = "Color";
+            this.circleColor.UseVisualStyleBackColor = true;
+            this.circleColor.Click += new System.EventHandler(this.circleColor_Click);
+            // 
             // StartWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 545);
+            this.Controls.Add(this.circleColor);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.filePath);
             this.Controls.Add(this.label1);
@@ -385,5 +398,7 @@ namespace MonkeyProject
         private System.Windows.Forms.ToolTip toolTip1;
         private NumericUpDown numTrialsUpDown;
         private Label numTrialsLabel;
+        private Button circleColor;
+        private ColorDialog circleColorDialog;
     }
 }

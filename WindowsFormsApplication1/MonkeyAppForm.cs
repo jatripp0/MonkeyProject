@@ -28,7 +28,7 @@ namespace MonkeyProject
         /// file path for the data, trial count and duration, number
         /// of trials, number of trials completed, whether the trials
         /// are timed, the trial timer, whether the screen is pressed,
-        /// and the list which will contain the data log.
+        /// the list which will contain the data log, and the color of the circle.
         /// </summary>
         private readonly Random r = new Random();
 
@@ -45,6 +45,7 @@ namespace MonkeyProject
         private readonly StartWindows sw;
         private readonly int min_radius;
         private readonly int max_radius;
+        private readonly Color circleColor;
 
         private readonly string filePath;
 
@@ -99,12 +100,13 @@ namespace MonkeyProject
         /// <param name="isTimed">Boolean variable to determine if trials are timed.</param>
         /// <param name="trialTime">Duration of trials (if timed)</param>
         /// <param name="numTrials">Number of trials to be run (if timed)</param>
-        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials)
+        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials, Color circleColor)
         {
             InitializeComponent();
             this.sw = sw;
             this.max_radius = max_radius;
             this.min_radius = min_radius;
+            this.circleColor = circleColor;
             this.filePath = filePath;
 
             this.trialCount = 0;
@@ -187,7 +189,7 @@ namespace MonkeyProject
 
             //g.DrawRectangle(Pens.Black, rect);
             //g.DrawEllipse(Pens.Black, rect);
-            SolidBrush sb = new SolidBrush(Color.Black);
+            SolidBrush sb = new SolidBrush(circleColor);
             g.FillEllipse(sb, rect);
         }
 

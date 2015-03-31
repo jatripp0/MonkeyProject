@@ -34,7 +34,6 @@ namespace MonkeyProject
         /// </summary>
         private void InitializeComponent()
         {
-            resolution = Screen.PrimaryScreen.Bounds;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonkeyAppWindow));
             this.SuspendLayout();
             // 
@@ -49,7 +48,6 @@ namespace MonkeyProject
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(resolution.X, resolution.Y);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MonkeyAppWindow";
