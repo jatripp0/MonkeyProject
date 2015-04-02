@@ -8,6 +8,8 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+
 //using System.Windows.Forms.Timer;
 
 namespace MonkeyProject
@@ -59,6 +61,9 @@ namespace MonkeyProject
         private Boolean isScreenPressed;
         private Boolean isCirclePressed;
 
+        private Boolean soundEnabled;
+        SoundPlayer player = new SoundPlayer(Resources.Resources.Clicker);
+
         private readonly List<RawDataField> ls;
 
         #endregion
@@ -101,7 +106,7 @@ namespace MonkeyProject
         /// <param name="isTimed">Boolean variable to determine if trials are timed.</param>
         /// <param name="trialTime">Duration of trials (if timed)</param>
         /// <param name="numTrials">Number of trials to be run (if timed)</param>
-        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials, Color circleColor)
+        public MonkeyAppWindow(StartWindows sw, int min_radius, int max_radius, string filePath, Boolean isTimed, int trialTime, int numTrials, Color circleColor, Boolean soundEnabled)
         {
             InitializeComponent();
             this.sw = sw;
@@ -120,6 +125,8 @@ namespace MonkeyProject
 
             isScreenPressed = false;
             isCirclePressed = false;
+
+            this.soundEnabled = soundEnabled;
 
             this.ls = new List<RawDataField>();
         }
@@ -240,6 +247,10 @@ namespace MonkeyProject
                 isCirclePressed = true;
                 rdf.IsPressed = true;
                 rdf.IsTimedOut = false;
+                if (soundEnabled == true)
+                {
+                    player.Play();
+                }
                 if (isTimed == true)
                 {
                     resetTimer(); //resets the interval of the Timer so that trial durations are not interrupted by a redraw of the circle.
@@ -269,7 +280,7 @@ namespace MonkeyProject
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
-            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance", "Is Timed Out"));
+            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance", "Is Timed Out"));
             foreach (RawDataField rdf in ls)
             {
                 String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}",
@@ -378,6 +389,7 @@ namespace MonkeyProject
         }
 
         #endregion
+
     }
 
     /// <summary>

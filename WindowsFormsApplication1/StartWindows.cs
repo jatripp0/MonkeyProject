@@ -25,6 +25,7 @@ namespace MonkeyProject
         /// values from the configuration panel.
         /// </summary>
         private Boolean isTimed;
+        private Boolean soundEnabled;
         private int trialSeconds;
         private int numTrials;
         private string path;
@@ -37,8 +38,9 @@ namespace MonkeyProject
         /// </summary>
         public StartWindows()
         {
-            cirColor = Color.Black;
+            cirColor = Color.White;
             InitializeComponent();
+            colorPanel.BackColor = cirColor;
         }
 
         private void StartWindows_Load(object sender, EventArgs e)
@@ -82,7 +84,7 @@ namespace MonkeyProject
                     return;
                 }
             }
-            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials, cirColor);
+            MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials, cirColor, soundEnabled);
             monkeyWindow.Show();
             this.Hide();
         }
@@ -295,8 +297,27 @@ namespace MonkeyProject
         /// </summary>
         private void circleColor_Click(object sender, EventArgs e)
         {
-            circleColorDialog.ShowDialog();
-            cirColor = circleColorDialog.Color;
+            DialogResult result = circleColorDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                cirColor = circleColorDialog.Color;
+                colorPanel.BackColor = circleColorDialog.Color;
+            }
+        }
+
+        /// <summary>
+        /// Checks to see if option to play clicker sound is checked.
+        /// </summary>
+        private void clickerCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (clickerCheck.Checked == true)
+            {
+                soundEnabled = true;
+            }
+            else
+            {
+                soundEnabled = false;
+            }
         }
 
         #endregion

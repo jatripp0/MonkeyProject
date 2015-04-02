@@ -57,6 +57,9 @@ namespace MonkeyProject
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.circleColor = new System.Windows.Forms.Button();
             this.circleColorDialog = new System.Windows.Forms.ColorDialog();
+            this.clickerLabel = new System.Windows.Forms.Label();
+            this.clickerCheck = new System.Windows.Forms.CheckBox();
+            this.colorPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.circleSizeMax)).BeginInit();
@@ -97,7 +100,7 @@ namespace MonkeyProject
             // 
             this.circleSizeSpinner.Location = new System.Drawing.Point(194, 124);
             this.circleSizeSpinner.Maximum = new decimal(new int[] {
-            750,
+            768,
             0,
             0,
             0});
@@ -141,7 +144,7 @@ namespace MonkeyProject
             this.circleSizeMax.Enabled = false;
             this.circleSizeMax.Location = new System.Drawing.Point(300, 201);
             this.circleSizeMax.Maximum = new decimal(new int[] {
-            750,
+            768,
             0,
             0,
             0});
@@ -336,11 +339,41 @@ namespace MonkeyProject
             this.circleColor.UseVisualStyleBackColor = true;
             this.circleColor.Click += new System.EventHandler(this.circleColor_Click);
             // 
+            // clickerLabel
+            // 
+            this.clickerLabel.AutoSize = true;
+            this.clickerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clickerLabel.Location = new System.Drawing.Point(570, 122);
+            this.clickerLabel.Name = "clickerLabel";
+            this.clickerLabel.Size = new System.Drawing.Size(135, 25);
+            this.clickerLabel.TabIndex = 21;
+            this.clickerLabel.Text = "Clicker Sound";
+            // 
+            // clickerCheck
+            // 
+            this.clickerCheck.AutoSize = true;
+            this.clickerCheck.Location = new System.Drawing.Point(711, 125);
+            this.clickerCheck.Name = "clickerCheck";
+            this.clickerCheck.Size = new System.Drawing.Size(22, 21);
+            this.clickerCheck.TabIndex = 22;
+            this.clickerCheck.UseVisualStyleBackColor = true;
+            this.clickerCheck.CheckedChanged += new System.EventHandler(this.clickerCheck_CheckedChanged);
+            // 
+            // colorPanel
+            // 
+            this.colorPanel.Location = new System.Drawing.Point(498, 122);
+            this.colorPanel.Name = "colorPanel";
+            this.colorPanel.Size = new System.Drawing.Size(41, 41);
+            this.colorPanel.TabIndex = 23;
+            // 
             // StartWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 544);
+            this.Controls.Add(this.colorPanel);
+            this.Controls.Add(this.clickerCheck);
+            this.Controls.Add(this.clickerLabel);
             this.Controls.Add(this.circleColor);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.filePath);
@@ -403,5 +436,8 @@ namespace MonkeyProject
         private Label numTrialsLabel;
         private Button circleColor;
         private ColorDialog circleColorDialog;
+        private Label clickerLabel;
+        private CheckBox clickerCheck;
+        private Panel colorPanel;
     }
 }
