@@ -5,7 +5,6 @@ namespace MonkeyProject
 {
     partial class MonkeyAppWindow
     {
-        Rectangle resolution = Screen.PrimaryScreen.Bounds;
         /// <summary>
         /// Required designer variable.
         /// </summary>

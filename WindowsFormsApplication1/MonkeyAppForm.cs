@@ -214,6 +214,8 @@ namespace MonkeyProject
         private void MonkeyPress(object sender, MouseEventArgs e)
         {
             RawDataField rdf = new RawDataField();
+            int centerScreenX = this.Width / 2;
+            int centerScreenY = this.Height / 2;
 
             int x2 = e.X;
             int y2 = e.Y;
@@ -268,6 +270,46 @@ namespace MonkeyProject
                 rdf.IsTimedOut = false;
             }
 
+            if (centerX > centerScreenX)
+            {
+                if (centerY > centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant I";
+                }
+                else
+                {
+                    rdf.Quadrant = "Quadrant IV";
+                }
+            }
+            else
+            {
+                if (centerY > centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant II";
+                }
+                else
+                {
+                    rdf.Quadrant = "Quadrant III";
+                }
+            }
+
+            if (x2 >= centerScreenX && y2 >= centerScreenY)
+            {
+                rdf.ClickQuadrant = "Quadrant I";
+            }
+            else if (x2 < centerScreenX && y2 >= centerScreenY)
+            {
+                rdf.ClickQuadrant = "Quadrant II";
+            }
+            else if (x2 < centerScreenX && y2 < centerScreenY)
+            {
+                rdf.ClickQuadrant = "Quadrant III";
+            }
+            else if (x2 >= centerScreenX && y2 < centerScreenY)
+            {
+                rdf.ClickQuadrant = "Quadrant IV";
+            }
+
             isScreenPressed = true;
         }
 
@@ -280,16 +322,16 @@ namespace MonkeyProject
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
-            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "ClickX", "ClickY", "Is Pressed", "Distance", "Is Timed Out"));
+            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", "Trial Number", "Start", "End", "Time", "CircleRadius", "ButtonX", "ButtonY", "Cirlce Quadrant", "ClickX", "ClickY", "Click Quadrant", "Is Pressed", "Distance", "Is Timed Out"));
             foreach (RawDataField rdf in ls)
             {
-                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}",
+                String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
                     rdf.TrialNumber,
                     rdf.Start.ToString("yyyy/MM/dd HH:mm:ss"),
                     rdf.End.ToString("yyyy/MM/dd HH:mm:ss"),
                     rdf.Time.TotalMilliseconds,
                     rdf.CircleRadius,
-                    rdf.ButtonX, rdf.ButtonY, rdf.ClickX, rdf.ClickY,rdf.IsPressed, rdf.Distance, rdf.IsTimedOut);
+                    rdf.ButtonX, rdf.ButtonY, rdf.Quadrant, rdf.ClickX, rdf.ClickY, rdf.ClickQuadrant, rdf.IsPressed, rdf.Distance, rdf.IsTimedOut);
                 dataLines.Add(csvRow);
             }
             System.IO.File.WriteAllLines(filePath, dataLines);
@@ -317,6 +359,8 @@ namespace MonkeyProject
             if (isScreenPressed == false)
             {
                 RawDataField rdf = new RawDataField();
+                int centerScreenX = this.Width / 2;
+                int centerScreenY = this.Height / 2;
 
                 rdf.IsPressed = false;
                 rdf.IsTimedOut = true;
@@ -334,6 +378,23 @@ namespace MonkeyProject
 
                 rdf.TrialNumber = trialCount;
 
+                if (centerX >= centerScreenX && centerY >= centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant I";
+                }
+                else if (centerX < centerScreenX && centerY >= centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant II";
+                }
+                else if (centerX < centerScreenX && centerY < centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant III";
+                }
+                else if (centerX >= centerScreenX && centerY < centerScreenY)
+                {
+                    rdf.Quadrant = "Quadrant IV";
+                }
+
                 ls.Add(rdf);
             }
             else if (isScreenPressed == true)
@@ -341,6 +402,8 @@ namespace MonkeyProject
                 if (isCirclePressed == false)
                 {
                     RawDataField rdf = new RawDataField();
+                    int centerScreenX = this.Width / 2;
+                    int centerScreenY = this.Height / 2;
 
                     rdf.IsPressed = false;
                     rdf.IsTimedOut = true;
@@ -359,6 +422,23 @@ namespace MonkeyProject
                     rdf.TrialNumber = trialCount;
 
                     rdf.IsTimedOut = true;
+
+                    if (centerX >= centerScreenX && centerY >= centerScreenY)
+                    {
+                        rdf.Quadrant = "Quadrant I";
+                    }
+                    else if (centerX < centerScreenX && centerY >= centerScreenY)
+                    {
+                        rdf.Quadrant = "Quadrant II";
+                    }
+                    else if (centerX < centerScreenX && centerY < centerScreenY)
+                    {
+                        rdf.Quadrant = "Quadrant III";
+                    }
+                    else if (centerX >= centerScreenX && centerY < centerScreenY)
+                    {
+                        rdf.Quadrant = "Quadrant IV";
+                    }
 
                     ls.Add(rdf);
                 }
@@ -409,6 +489,8 @@ namespace MonkeyProject
         public Boolean IsPressed { get; set; }
         public Boolean IsTimedOut { get; set; }
         public int TrialNumber { get; set; }
+        public String Quadrant { get; set; }
+        public String ClickQuadrant { get; set; }
 
     }
 }
