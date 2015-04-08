@@ -326,7 +326,7 @@ namespace MonkeyProject
         private void SaveResults()
         {
             List<String> dataLines = new List<String>();
-            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", "Trial Number", "Trial Start Time", "Trial End Time", "Trial Duration (milliseconds)", "Button Radius", "Button X Position", "Button Y Position", "Button Quadrant", "Click X Position", "Click Y Position", "Click Quadrant", "Is Screen Pressed", "Distance from Button Center", "Is Trial Timed Out"));
+            dataLines.Add(String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", "Trial Number", "Trial Start Time", "Trial End Time", "Trial Duration (milliseconds)", "Button Radius", "Button X Position", "Button Y Position", "Button Quadrant", "Click X Position", "Click Y Position", "Click Quadrant","Is Button Pressed", "Click Distance from Button Center", "Is Trial Timed Out"));
             foreach (RawDataField rdf in ls)
             {
                 String csvRow = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
@@ -382,29 +382,6 @@ namespace MonkeyProject
 
                 rdf.TrialNumber = trialCount;
 
-                if (centerX > centerScreenX)
-                {
-                    if (centerY < centerScreenY)
-                    {
-                        rdf.Quadrant = "Quadrant I";
-                    }
-                    else
-                    {
-                        rdf.Quadrant = "Quadrant IV";
-                    }
-                }
-                else
-                {
-                    if (centerY < centerScreenY)
-                    {
-                        rdf.Quadrant = "Quadrant II";
-                    }
-                    else
-                    {
-                        rdf.Quadrant = "Quadrant III";
-                    }
-                }
-
                 ls.Add(rdf);
             }
             else if (isScreenPressed == true)
@@ -432,29 +409,6 @@ namespace MonkeyProject
                     rdf.TrialNumber = trialCount;
 
                     rdf.IsTimedOut = true;
-
-                    if (centerX > centerScreenX)
-                    {
-                        if (centerY < centerScreenY)
-                        {
-                            rdf.Quadrant = "Quadrant I";
-                        }
-                        else
-                        {
-                            rdf.Quadrant = "Quadrant IV";
-                        }
-                    }
-                    else
-                    {
-                        if (centerY < centerScreenY)
-                        {
-                            rdf.Quadrant = "Quadrant II";
-                        }
-                        else
-                        {
-                            rdf.Quadrant = "Quadrant III";
-                        }
-                    }
 
                     ls.Add(rdf);
                 }
