@@ -340,7 +340,7 @@ namespace MonkeyProject
             }
             String temp = System.IO.Path.GetTempFileName();
             System.IO.File.WriteAllLines(temp, dataLines);
-            System.IO.File.Copy(temp, filePath);
+            System.IO.File.Copy(temp, filePath, true);
         }
 
         /// <summary>
