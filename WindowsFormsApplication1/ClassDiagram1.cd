@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MonkeyProject.ShapeCalculator" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.MonkeyAppWindow" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IA0IAgAACCAAAAABEFCCMBgCCAQAIEMZQAIRAAAAAAQ=</HashCode>
+      <FileName>MonkeyAppForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.RawDataField" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAABAMAAAAAgEAAEAAAABAABAAAAAAAwg=</HashCode>
+      <FileName>MonkeyAppForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.Program" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.StartWindows" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAggghDLAQQBIBABCjAECCQgTCkEIZIAAAARAMEAg=</HashCode>
+      <FileName>StartWindows.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAABEAACAYAAAAAAAAAAAAAAIIQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAABAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonkeyProject.Resources.Resources" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAYAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

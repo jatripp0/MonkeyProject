@@ -158,7 +158,7 @@ namespace MonkeyProject
             centerX = boxX + (boxWidth / 2);
             centerY = boxY + (boxHeight / 2);
 
-
+            SaveResults();
             this.Invalidate();
         }
 
@@ -338,7 +338,9 @@ namespace MonkeyProject
                     rdf.ButtonX, rdf.ButtonY, rdf.Quadrant, rdf.ClickX, rdf.ClickY, rdf.ClickQuadrant, rdf.IsPressed, rdf.Distance, rdf.IsTimedOut);
                 dataLines.Add(csvRow);
             }
-            System.IO.File.WriteAllLines(filePath, dataLines);
+            String temp = System.IO.Path.GetTempFileName();
+            System.IO.File.WriteAllLines(temp, dataLines);
+            System.IO.File.Copy(temp, filePath);
         }
 
         /// <summary>
