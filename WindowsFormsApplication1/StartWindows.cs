@@ -84,6 +84,20 @@ namespace MonkeyProject
                     return;
                 }
             }
+            else if(!Directory.Exists(Path.GetDirectoryName(path)))
+            {
+                string messageBoxText = "The specified directory " + Path.GetDirectoryName(path) + " does not exist. Do you want us to create it for you?";
+                string caption = "Warning";
+                MessageBoxButtons button = MessageBoxButtons.YesNo;
+                MessageBoxIcon icon = MessageBoxIcon.Warning;
+                DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
             MonkeyAppWindow monkeyWindow = new MonkeyAppWindow(this, min_radius, max_radius, path, isTimed, trialSeconds, numTrials, cirColor, soundEnabled);
             monkeyWindow.Show();
             this.Hide();
