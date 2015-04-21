@@ -176,7 +176,7 @@ namespace MonkeyProject
                 if (isTimed == true)
                 {
                     timer.Enabled = true;
-                    timer.Start();
+                    resetTimer();
                     drawCircle();
                 }
                 else
